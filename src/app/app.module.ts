@@ -6,8 +6,10 @@ import { MyApp } from './app.component';
 
 /* Pages */
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { FormPage } from '../pages/form/form';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { GetInfoPage } from '../pages/get-info/get-info';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -15,30 +17,44 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiProvider } from '../providers/api/api';
 
+/* Addtl Plugin */
+import { FCM } from '@ionic-native/fcm';
+import { Firebase } from '@ionic-native/firebase';
+import { HttpModule } from '@angular/http';
+import { SharedobjectserviceProvider } from '../providers/sharedobjectservice/sharedobjectservice';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    DashboardPage
+    DashboardPage,
+    FormPage,
+    GetInfoPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     ListPage,
-    DashboardPage
+    DashboardPage,
+    FormPage,
+    GetInfoPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ApiProvider
+    ApiProvider,
+    FCM,
+    Firebase,
+    SharedobjectserviceProvider
   ]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 
@@ -24,6 +24,10 @@ export class ApiProvider {
   public options = new RequestOptions({ headers: this.headers });
 
   private baseurl = 'https://app.infinityenergyorganisation.co.uk/v1/app/api';
+  
+  constructor(public http: Http) {
+    console.log('Hello ApiProvider Provider');
+  }
 
   login(data)
   {
@@ -35,8 +39,15 @@ export class ApiProvider {
     return this.http.get(`${this.baseurl}/check/${data}`);
   }
 
-  constructor(public http: HttpClient) {
-    console.log('Hello ApiProvider Provider');
+  fetchAssignedLeads(data)
+  {
+    return this.http.get(`${this.baseurl}/fetch/${data}`);
   }
+
+  getInfo(data)
+  {
+    return this.http.get(`${this.baseurl}/getinfo/${data}`);
+  }
+
 
 }

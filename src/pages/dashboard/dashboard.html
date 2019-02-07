@@ -15,5 +15,11 @@
 
 
 <ion-content padding>
-
+  <ion-list *ngFor="let lead of leads">
+    <ion-item (click)="showLead(lead.lead_slug)">{{ lead.name_of_customer }}</ion-item>
+  </ion-list>
 </ion-content>
+
+<!-- <ion-content padding>
+  <button class="btn btn-primary btn-block btn-lg" (click)="Form()">Test</button>
+</ion-content> -->

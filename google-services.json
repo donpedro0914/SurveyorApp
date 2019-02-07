@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "935647285598",
+    "firebase_url": "https://infinity-mobile-otp.firebaseio.com",
+    "project_id": "infinity-mobile-otp",
+    "storage_bucket": "infinity-mobile-otp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935647285598:android:bb8157730b4373b1",
+        "android_client_info": {
+          "package_name": "io.infinity.surveyor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "935647285598-512jr1vfc97g5s6jnd9gmq2p7ltruljh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.infinity.surveyor",
+            "certificate_hash": "eeb35bf8c71e59a203b877c055dd12668f14ab5a"
+          }
+        },
+        {
+          "client_id": "935647285598-auu8vsr0ie4tjaj7dineavt1da4an7jf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_hUB1gnrOm8W070Fl2FMdx9Uaq5ugORE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935647285598-auu8vsr0ie4tjaj7dineavt1da4an7jf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

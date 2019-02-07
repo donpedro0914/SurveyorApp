@@ -17,7 +17,8 @@ export class HomePage {
 
   data = {
     token: null,
-    name: null
+    name: null,
+    id: null
   };
 
   public loadingLogIn;
@@ -50,12 +51,14 @@ export class HomePage {
     );
   }
 
-  handleResponse(data)
+  handleResponse(data1)
   {
+    let data = JSON.parse(data1._body);
     if(data.success) {
       this.loadingLogIn.present();
       this.data.token = data.token;
-      this.data.name = data.name;
+      this.data.name = data.user.name;
+      this.data.id = data.user.id;
       localStorage.setItem('data', JSON.stringify(this.data));
       setTimeout(() => {
         this.loadingLogIn.dismiss();
