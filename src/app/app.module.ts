@@ -22,6 +22,8 @@ import { FCM } from '@ionic-native/fcm';
 import { Firebase } from '@ionic-native/firebase';
 import { HttpModule } from '@angular/http';
 import { SharedobjectserviceProvider } from '../providers/sharedobjectservice/sharedobjectservice';
+import { File } from '@ionic-native/file';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { SharedobjectserviceProvider } from '../providers/sharedobjectservice/sh
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     HttpClientModule,
     HttpModule
   ],

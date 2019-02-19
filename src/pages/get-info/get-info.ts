@@ -21,6 +21,7 @@ export class GetInfoPage {
 
   private isHeat: boolean = false;
   private isWall: boolean = false;
+  private is67: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.info = navParams.get('data');
@@ -41,6 +42,10 @@ export class GetInfoPage {
 
   showWall() {
     this.isWall = this.isWall ? false : true;
+  }
+
+  show67() {
+    this.is67 = this.is67 ? false : true;
   }
 
 }

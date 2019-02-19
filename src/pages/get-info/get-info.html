@@ -778,5 +778,37 @@
         </tr>
       </table>
     </div>
+    <div [ngClass]="is67 ? 'show-67':'hide-67'">
+      <h4>ANNEX 1 - POPT Calculations (Mandatory where POPT is less than 67%) Please enter the exact POPT to the nearest whole number.</h4>
+      <table class="table table-bordered">
+          <tr class="yellow-bg">
+            <td colspan="11" class="text-center"><strong>Roof Insultion measures only</strong></td>
+          </tr>
+          <tr>
+            <td colspan="11">
+              <span>Enter areas with a different roof type (or where a different roof insulation measure/depth is being installed) as extension. for RIRI, the total residual loft area should be included in the RIR area recorded below. For further information on scoring a RIRI measure please see chapter 7 of ECO3 Guidance</span>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Property section <small>(main loft, extension etc)</small></strong></td>
+            <td><strong>Roof type <small>(Flat/pitched/RIR)</small></strong></td>
+            <td><strong>Roof area <small>(M<sup>2</sup>)</small></strong></td>
+            <td colspan="8"><strong>M<sup>2</sup> and type of insulation to be installed<sup>8</sup></strong></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>&lt; 100mm</td>
+            <td></td>
+            <td>&gt; 100mm</td>
+            <td></td>
+            <td>FRI</td>
+            <td></td>
+            <td>RIRI</td>
+            <td></td>
+          </tr>
+      </table>
+    </div>
   </div>
 </ion-content>
