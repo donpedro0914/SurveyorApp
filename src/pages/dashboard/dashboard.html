@@ -15,11 +15,25 @@
 
 
 <ion-content padding>
-  <ion-list *ngFor="let lead of leads">
-    <ion-item (click)="showLead(lead.lead_slug)">{{ lead.name_of_customer }}</ion-item>
-  </ion-list>
-</ion-content>
+  <ion-list padding-bottom>
 
-<!-- <ion-content padding>
-  <button class="btn btn-primary btn-block btn-lg" (click)="Form()">Test</button>
-</ion-content> -->
+     <ion-list-header class="sectionInProgress">
+       <ion-icon name="book" start></ion-icon>
+       &nbsp; In Progress
+     </ion-list-header>
+
+    <ion-item *ngFor="let lead of leads">
+      <ion-item (click)="showLead(lead.lead_slug, lead.c_campaign_name)">
+        <p>{{lead.name_of_customer}}</p>
+        <small>{{lead.c_campaign_name}}</small>
+        <div clear item-right>
+          <p>{{ lead.created_at }}</p>
+        </div>
+      </ion-item>
+    </ion-item>
+
+   </ion-list>
+  <!-- <ion-list *ngFor="let lead of leads">
+    <ion-item (click)="showLead(lead.lead_slug)">{{ lead.name_of_customer }}</ion-item>
+  </ion-list> -->
+</ion-content>

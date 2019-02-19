@@ -5,7 +5,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ApiProvider } from '../../providers/api/api';
 
 /* Pages */
-import { FormPage } from '../form/form';
 import { GetInfoPage } from '../get-info/get-info';
 
 
@@ -19,6 +18,7 @@ export class DashboardPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public api: ApiProvider) {
+    
   }
 
   name: string;
@@ -29,6 +29,10 @@ export class DashboardPage {
     let data = JSON.parse(localStorage.getItem('data'));
     this.name = data.name;
     this.id = data.id;
+
+    let leads = localStorage.getItem('leads');
+
+    console.log(leads);
 
     this.getLeadsAssigned();
   }
@@ -41,36 +45,39 @@ export class DashboardPage {
     );
   }
 
-  showLead(slug)
+  showLead(slug, campaignName)
   {
     this.api.getInfo(slug).subscribe(
-      data => this.showLeadresponse(data),
+      data => this.showLeadresponse(data, campaignName),
       error => this.handleError(error)
     );
-    console.log(slug);
+    // console.log(slug);
   }
 
-  showLeadresponse(data)
+  showLeadresponse(data, campaignName)
   {
+    let data1 = JSON.parse(data._body);
+    let data2 = JSON.parse(data1.Leads[0].additional_fields);
+    
     this.navCtrl.push(GetInfoPage, {
-      data: data.data
-    })
+      data: data1.Leads[0],
+      campaignName: campaignName,
+      data2: data2
+    });
+
+    console.log(campaignName);
   }
   handleResponse(data1)
   {
     let data = JSON.parse(data1._body);
     this.leads = data['In_Progress'];
-    console.log(this.leads);
+    // localStorage.setItem('leads', JSON.parse(this.leads));
+    // console.log(this.leads);
   }
 
   handleError(error)
   {
     console.log(error.error);
-  }
-
-  Form()
-  {
-    this.navCtrl.setRoot(FormPage);
   }
 
 }

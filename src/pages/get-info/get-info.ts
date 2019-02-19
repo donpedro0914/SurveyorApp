@@ -15,11 +15,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class GetInfoPage {
 
+  info:any;
+  addinfo:any;
+  campaignName:any;
+
+  private isHeat: boolean = false;
+  private isWall: boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.info = navParams.get('data');
+    this.addinfo = navParams.get('data2');
+    this.campaignName = navParams.get('campaignName');
+
+    // console.log(this.info);
   }
 
+
   ionViewDidLoad() {
-    console.log('ionViewDidLoad GetInfoPage');
+    
+  }
+
+  showHeat() {
+    this.isHeat = this.isHeat ? false : true;
+  }
+
+  showWall() {
+    this.isWall = this.isWall ? false : true;
   }
 
 }

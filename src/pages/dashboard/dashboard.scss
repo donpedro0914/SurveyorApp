@@ -8,4 +8,13 @@ page-dashboard {
     .toolbar-ios ion-title {
         width: auto;
     }
+    .list-md .item-block .item-inner {
+        border-bottom: 0;
+    }
+    .list-md .item-block .item-inner .item-block .item-inner {
+        border-bottom: 1px solid #dedede;
+    }
+    .list-md .item-block .item-inner .item-block .item-inner:last-child {
+        border-bottom: 0 !important;
+    }
 }

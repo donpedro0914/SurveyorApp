@@ -7,12 +7,776 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>getInfo</ion-title>
+    <ion-title>{{ info.name_of_customer }} | {{ campaignName }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="savedObject()" > Save Lead </button>
+      <button ion-button (click)="submitObject()" > Submit </button>
+   </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+  <div class="form_container">
+    <h3>ECO3: Deemed Scores Survey<sup>1</sup></h3>
+    <ul>
+      <li>
+        Questions 1-9 are mandatory. Questions 10-17 must be completed for the
+        relevant measure type, and may be completed by a different operative at
+        survey or post-installation stage.
+      </li>
+      <li>
+        Annex 1 should be completed for measures where the POPT is less that 67%
+      </li>
+      <li>
+        If you wish to challenge a technical monitoring fail you will need to
+        provide the POPT and your calculations.
+      </li>
+      <li>
+        Additional pages should be appended if there is not enough space in the
+        fields provided.
+      </li>
+      <li>
+        All photographic evidence in relation to a measure must be appropriate
+        and in line with GDPR<sup>2</sup> and Data Protection Act 2018
+        requirements.
+      </li>
+    </ul>
 
+    <table class="table table-bordered s1">
+      <tr>
+        <td>1. Date of survey:</td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.date_of_survey }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>2. Assessor/Operative</td>
+        <td colspan="6">
+          <ion-input placeholder="Name:"></ion-input>
+          <ion-input placeholder="Company name:"></ion-input>
+          <ion-input placeholder="Tel:"></ion-input>
+          <ion-input placeholder="Email:" value="{{ info.email }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>3. Name of customer:</td>
+        <td colspan="6">
+          <ion-input value="{{ info.name_of_customer }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>4. Address of installation:</td>
+        <td colspan="6">
+            <ion-input value="{{ info.address_of_install }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>5. Post code:</td>
+        <td colspan="6">
+          <ion-input value="{{ info.postcode }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>6. <strong>Property type:</strong></td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.property_type }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong><i>If House/Bungalow</i></strong>
+        </td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.property_type2 }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong><i>If Flat/Maisonette</i></strong>
+        </td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.property_type2 }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>7. <strong>Number of Bedrooms:</strong></td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.bedrooms }}"></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>8. <strong>Tenure:</strong></td>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.tenure }}"></ion-input>
+        </td>
+      </tr>
+    </table>
+
+    <h4>Please tick relevant POPT. Measure/s being installed (where any measire is &lt;67% complete annex 1)</h4>
+    <table class="table table-bordered">
+      <tr>
+        <td width="30%">
+          <strong class="block">Cavity Wall Insulation</strong>
+          <ion-list radio-group>
+            <ion-item class="col-3">
+              <ion-radio (ionSelect)="showWall()" value="0.027"></ion-radio>
+              <ion-label>0.027</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio (ionSelect)="showWall()" value="0.033"></ion-radio>
+              <ion-label>0.033</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio (ionSelect)="showWall()" value="0.04"></ion-radio>
+              <ion-label>0.04</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio (ionSelect)="showWall()" value="Unknown"></ion-radio>
+              <ion-label>Unknown</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio class="block" value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Loft Insulation</strong>
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;100mm"></ion-radio>
+              <ion-label>&lt;100mm</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;100mm"></ion-radio>
+              <ion-label>&gt;100mm</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <ion-list radio-group>
+            <ion-item class="col-3">
+              <ion-radio value="Boiler"></ion-radio>
+              <ion-label>Boiler</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio value="Broken"></ion-radio>
+              <ion-label>Broken</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio value="Upgrade"></ion-radio>
+              <ion-label>Upgrade</ion-label>
+            </ion-item>
+            <ion-item class="col-3">
+              <ion-radio value="Repair"></ion-radio>
+              <ion-label>Repair</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%"><strong class="block">Heating Controls</strong></td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="100%"></ion-radio>
+              <ion-label>100%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="N/A"></ion-radio>
+              <ion-label>N/A</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Electric Storage Heaters HHR</strong>
+          <ion-list radio-group>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Broken"></ion-radio>
+              <ion-label>Broken</ion-label>
+            </ion-item>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Upgrade"></ion-radio>
+              <ion-label>Upgrade</ion-label>
+            </ion-item>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Repair"></ion-radio>
+              <ion-label>Repair</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Electric Storage Heaters Fan</strong>
+          <ion-list radio-group>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Broken"></ion-radio>
+              <ion-label>Broken</ion-label>
+            </ion-item>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Upgrade"></ion-radio>
+              <ion-label>Upgrade</ion-label>
+            </ion-item>
+            <ion-item class="col-4">
+              <ion-radio (ionSelect)="showHeat()" value="Repair"></ion-radio>
+              <ion-label>Repair</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">First Time Central Heating</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="100%"></ion-radio>
+              <ion-label>100%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="N/A"></ion-radio>
+              <ion-label>N/A</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">External Wall Insulation</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Internal Wall Insulation</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Rppm-in-roof Insulation</strong>
+          <i class="block">Residual area insulated</i>
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="Yes"></ion-radio>
+              <ion-label>Yes<sup>3</sup></ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="No"></ion-radio>
+              <ion-label>No</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Flat Roof Insulation</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Under floor insulation</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Party Cavity Wall Insulation</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Draught Proofing</strong>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Other (Please specify)</strong>
+          <ion-input placeholder="please specify"></ion-input>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+        <td width="30%">
+          <strong class="block">Other (Please specify)</strong>
+          <ion-input placeholder="please specify"></ion-input>
+        </td>
+        <td width="15%">
+          <ion-list radio-group>
+            <ion-item class="col-6">
+              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-label>&lt;67%</ion-label>
+            </ion-item>
+            <ion-item class="col-6">
+              <ion-radio value="&gt;67%"></ion-radio>
+              <ion-label>&gt;67%</ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+      <tr>
+        <td width="30%">
+          <strong class="block">Boiler/FTCH post-heating fuel</strong>
+        </td>
+        <td width="70%" colspan="5">
+          <ion-list radio-group>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="Gas"></ion-radio>
+              <ion-label>Gas</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="LPG"></ion-radio>
+              <ion-label>LPG</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="DHS"></ion-radio>
+              <ion-label>DHS</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="ASHP"></ion-radio>
+              <ion-label>ASHP</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="GSHP"></ion-radio>
+              <ion-label>GSHP</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="Biomass"></ion-radio>
+              <ion-label>Biomass</ion-label>
+            </ion-item>
+            <ion-item class="col-custom-1">
+              <ion-radio (ionSelect)="showHeat()" value="Oil"></ion-radio>
+              <ion-label>Oil<sup>4</sup></ion-label>
+            </ion-item>
+          </ion-list>
+        </td>
+      </tr>
+    </table>
+    <table class="table table-bordered">
+      <tr>
+        <td colspan="6">9. What is the pre-main heating source<sup>5</sup>?</td>
+      </tr>
+      <tr>
+        <td colspan="6">
+          <ion-input value="{{ addinfo.heating_source }}"></ion-input>
+        </td>
+      </tr>
+    <tr>
+      <td>
+        <ion-input placeholder="If other, specify the heating source and what deemed scores proxy is being used?"></ion-input>
+      </td>
+    </tr>
+    </table>
+    <div [ngClass]="isHeat ? 'show-heat':'hide-heat'">
+      <table class="table table-bordered">
+        <tr class="yellow-bg">
+          <td colspan="7" class="text-center"><strong>Heating measures only</strong></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="valign-mid">
+              <strong>10. Main wall construction type</strong>
+          </td>
+          <td colspan="3">
+              <ion-list radio-group>
+                <ion-item class="col-6">
+                  <ion-radio value="&gt;50% cavity wall"></ion-radio>
+                  <ion-label>&gt;50% cavity wall</ion-label>
+                </ion-item>
+                <ion-item class="col-6">
+                  <ion-radio class="block" value="&gt;50% solid wall"></ion-radio>
+                  <ion-label>&gt;50% solid wall</ion-label>
+                </ion-item>
+              </ion-list>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" class="valign-mid">
+              <strong>11. Are there a full set of functioning pre-existing heating controls?</strong>
+          </td>
+          <td colspan="3">
+            <ion-item class="col-12">
+              <ion-label>Yes/No</ion-label>
+              <ion-select [(ngModel)]="gender">
+                <ion-option value="yes">Yes</ion-option>
+                <ion-option value="no">No</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item class="col-12">
+              <ion-input placeholder="If applicable, please record fault(s)"></ion-input>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" class="valign-mid">
+            <strong>12. What heating controls currently exist? <small>(Tick all that apply)</small></strong>
+          </td>
+          <td colspan="3" class="valign-mid">
+            <ion-item>
+              <ion-label>Programmer</ion-label>
+              <ion-checkbox [(ngModel)]="programmer"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <ion-item>
+              <ion-label>Room Thermostat</ion-label>
+              <ion-checkbox [(ngModel)]="room_thermostat"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td colspan="3">
+            <ion-item>
+              <ion-label>TRV</ion-label>
+              <ion-checkbox [(ngModel)]="trv"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Please record the existing number of radiators"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="Please record the existing number of TRV's"></ion-input>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="7" class="valign-mid">
+            <strong>13. What heating measure(s) is or are being installed? <small>(Tick all that apply)</small></strong>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <ion-item>
+              <ion-label>Broken boiler repair no pre-existing heating controls</ion-label>
+              <ion-checkbox [(ngModel)]="bb1"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td colspan="3">
+            <ion-item>
+              <ion-label>Broken boiler repair pre-existing heating controls</ion-label>
+              <ion-checkbox [(ngModel)]="bb2"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <ion-item>
+              <ion-label>Broken boiler replace no pre-existing heating controls</ion-label>
+              <ion-checkbox [(ngModel)]="bb3"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td colspan="3">
+            <ion-item>
+              <ion-label>Broken boiler replace pre-existing heating controls</ion-label>
+              <ion-checkbox [(ngModel)]="bb4"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="7">
+            <ion-item>
+              <ion-label>Inefficient/broken boiler (Please specify accompanying insulation measure)</ion-label>
+              <ion-checkbox [(ngModel)]="bb5"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <ion-item>
+              <ion-label>Heating controls</ion-label>
+              <ion-checkbox [(ngModel)]="bb6"></ion-checkbox>
+            </ion-item>
+          </td>
+          <td colspan="3">
+            <ion-item>
+              <ion-label>First time central heating</ion-label>
+              <ion-checkbox [(ngModel)]="bb7"></ion-checkbox>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td width="15%">
+            Pre-existing ESH<sup>6</sup>:<br />
+            <small>(please record number)</small>
+          </td>
+          <td width="20%">
+            <strong class="block">Slimline</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+          <td width="20%">
+            <strong class="block">Fan assisted</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+          <td width="20%">
+            <strong class="block">High heat retention</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+        </tr>
+        <tr>
+          <td width="40%" rowspan="2" colspan="3">
+            Number of ESH being installed:
+            <small>(please record number)</small>
+          </td>
+          <td width="20%">
+            <strong class="block">Broken Fan assisted</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+          <td width="20%">
+            <strong class="block">Broken High heat retention</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+        </tr>
+        <tr>
+          <td width="20%">
+            <strong class="block">Upgrade Fan assisted</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+          <td width="20%">
+            <strong class="block">Upgrade High heat retention</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <ion-item>
+              <ion-label>Inefficient/broken boiler (Please specify accompanying insulation measure)</ion-label>
+              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+            </ion-item>
+          </td>
+          <td colspan="2">
+            <ion-item>
+              <ion-label>Fan assisted:</ion-label>
+              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+            </ion-item>
+          </td>
+          <td colspan="2">
+            <ion-item>
+              <ion-label>High heat retention:</ion-label>
+              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+            </ion-item>
+          </td>
+        </tr>
+        <tr>
+          <td width="40%" colspan="3">
+            ESH repair:<br />
+            <small>(please record number)</small>
+          </td>
+          <td width="20%">
+            <strong class="block">Fan assisted</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+          <td width="20%">
+            <strong class="block">High heat retention</strong>
+          </td>
+          <td width="5%">
+            <ion-input type="number"></ion-input>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div [ngClass]="isWall ? 'show-wall':'hide-wall'">
+      <table class="table table-bordered">
+        <tr class="yellow-bg">
+          <td colspan="7" class="text-center"><strong>Wall insulation measures only</strong></td>
+        </tr>
+        <tr>
+          <td width="70%">
+            <strong class="block">14. CWI only - Are the walls already partially insulated<sup>7</sup>?</strong>
+          </td>
+          <td width="30%">
+            <ion-select [(ngModel)]="q14">
+              <ion-option value="yes">Yes</ion-option>
+              <ion-option value="no">No</ion-option>
+              <ion-option value="unknown">Unknown</ion-option>
+            </ion-select>
+          </td>
+        </tr>
+        <tr>
+          <td width="70%">
+            <strong class="block">15. Approximate build year or age band, & reasoning <small>(all solid wall measures):</small></strong>
+          </td>
+          <td width="30%">
+          </td>
+        </tr>
+        <tr>
+          <td width="70%">
+            <strong class="block">16. Are you proposing to insulate any cavity party walls?</strong>
+          </td>
+          <td width="30%">
+            <ion-select [(ngModel)]="q16">
+              <ion-option value="yes">Yes</ion-option>
+              <ion-option value="no">No</ion-option>
+              <ion-option value="unknown">Unknown</ion-option>
+            </ion-select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <strong class="block">17. Please state wall type for SWI measure - eg solid, cavity, system build:</strong>
+            <ion-item>
+              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+            </ion-item>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </ion-content>
