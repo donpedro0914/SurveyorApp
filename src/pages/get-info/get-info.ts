@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content, Platform, normalizeURL, ModalController } from 'ionic-angular';
 
-/**
- * Generated class for the GetInfoPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Storage } from '@ionic/storage';
+
+import { File, IWriteOptions  } from '@ionic-native/file';
+import { FloorplanPage } from '../floorplan/floorplan';
+
+const STORAGE_KEY = 'IMAGE_LIST';
 
 @IonicPage()
 @Component({
@@ -23,29 +23,52 @@ export class GetInfoPage {
   private isWall: boolean = false;
   private is67: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public floorPlanImage: string;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalController: ModalController) {
     this.info = navParams.get('data');
     this.addinfo = navParams.get('data2');
     this.campaignName = navParams.get('campaignName');
 
-    // console.log(this.info);
+    this.floorPlanImage = navParams.get('floorPlanImage');
+
+    console.log(this.info.lead_slug);
   }
 
-
+  
   ionViewDidLoad() {
-    
   }
 
   showHeat() {
-    this.isHeat = this.isHeat ? false : true;
+    this.isHeat = this.isHeat ? true : true;
   }
 
   showWall() {
-    this.isWall = this.isWall ? false : true;
+    this.isWall = this.isWall ? true : true;
   }
 
   show67() {
-    this.is67 = this.is67 ? false : true;
+    this.is67 = this.is67 ? true : true;
+  }
+
+  openFloorPlanModel() {
+    var data = { slug: this.info.lead_slug, campaignName: this.campaignName };
+
+    let modal = this.modalController.create(FloorplanPage, data, { cssClass: 'modal-fullscreen' });
+    modal.onDidDismiss(data => {
+      console.log(data);
+    })
+
+    modal.present();
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
   }
 
 }

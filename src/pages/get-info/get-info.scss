@@ -50,10 +50,21 @@ page-get-info {
     .yellow-bg {
         background: #b0d654;
     }
-    .hide-heat, .hide-wall, .hide-66 {
+    .hide-heat, .hide-wall, .hide-67, .hide-drawPad {
         display: none;
     }
-    .show-heat, .show-wall, .show-67 {
+    .show-heat, .show-wall, .show-67, .show-drawPad {
         display: block;
-    }   
+    }
+    .black-bg {
+        color: #fff;
+        background: #000;
+    }
+    canvas {
+        display: block;
+        border: 1px solid rgb(187, 178, 178);
+    }
+    .color-block {
+        height: 50px;
+    }
 }

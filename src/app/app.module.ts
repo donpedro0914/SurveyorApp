@@ -10,6 +10,7 @@ import { FormPage } from '../pages/form/form';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { GetInfoPage } from '../pages/get-info/get-info';
+import { FloorplanPage } from '../pages/floorplan/floorplan';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -24,6 +25,7 @@ import { HttpModule } from '@angular/http';
 import { SharedobjectserviceProvider } from '../providers/sharedobjectservice/sharedobjectservice';
 import { File } from '@ionic-native/file';
 import { IonicStorageModule } from '@ionic/storage';
+import { SignaturePadModule } from 'angular2-signaturepad';
 
 @NgModule({
   declarations: [
@@ -32,14 +34,16 @@ import { IonicStorageModule } from '@ionic/storage';
     ListPage,
     DashboardPage,
     FormPage,
-    GetInfoPage
+    GetInfoPage,
+    FloorplanPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    SignaturePadModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -48,12 +52,14 @@ import { IonicStorageModule } from '@ionic/storage';
     ListPage,
     DashboardPage,
     FormPage,
-    GetInfoPage
+    GetInfoPage,
+    FloorplanPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File,
     ApiProvider,
     FCM,
     Firebase,

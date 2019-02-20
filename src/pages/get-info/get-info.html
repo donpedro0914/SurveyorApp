@@ -9,14 +9,18 @@
   <ion-navbar>
     <ion-title>{{ info.name_of_customer }} | {{ campaignName }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="savedObject()" > Save Lead </button>
-      <button ion-button (click)="submitObject()" > Submit </button>
-   </ion-buttons>
+      <button ion-button (click)="savedObject()"> Save Lead </button>
+      <button ion-button (click)="submitObject()"> Submit </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
+<ion-content padding no-bounce>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles"
+      refreshingText="Refreshing..."></ion-refresher-content>
+  </ion-refresher>
   <div class="form_container">
     <h3>ECO3: Deemed Scores Survey<sup>1</sup></h3>
     <ul>
@@ -68,7 +72,7 @@
       <tr>
         <td>4. Address of installation:</td>
         <td colspan="6">
-            <ion-input value="{{ info.address_of_install }}"></ion-input>
+          <ion-input value="{{ info.address_of_install }}"></ion-input>
         </td>
       </tr>
       <tr>
@@ -113,7 +117,7 @@
       </tr>
     </table>
 
-    <h4>Please tick relevant POPT. Measure/s being installed (where any measire is &lt;67% complete annex 1)</h4>
+    <h4>Please tick relevant POPT. Measure/s being installed (where any measure is &lt;67% complete annex 1)</h4>
     <table class="table table-bordered">
       <tr>
         <td width="30%">
@@ -140,7 +144,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -165,7 +169,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -199,7 +203,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -243,7 +247,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -272,7 +276,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -304,7 +308,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -321,7 +325,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -347,7 +351,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -364,7 +368,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -379,7 +383,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -396,7 +400,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -411,7 +415,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -429,7 +433,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -445,7 +449,7 @@
         <td width="15%">
           <ion-list radio-group>
             <ion-item class="col-6">
-              <ion-radio value="&lt;67%"></ion-radio>
+              <ion-radio (ionSelect)="show67()" value="&lt;67%"></ion-radio>
               <ion-label>&lt;67%</ion-label>
             </ion-item>
             <ion-item class="col-6">
@@ -502,11 +506,12 @@
           <ion-input value="{{ addinfo.heating_source }}"></ion-input>
         </td>
       </tr>
-    <tr>
-      <td>
-        <ion-input placeholder="If other, specify the heating source and what deemed scores proxy is being used?"></ion-input>
-      </td>
-    </tr>
+      <tr>
+        <td>
+          <ion-input placeholder="If other, specify the heating source and what deemed scores proxy is being used?">
+          </ion-input>
+        </td>
+      </tr>
     </table>
     <div [ngClass]="isHeat ? 'show-heat':'hide-heat'">
       <table class="table table-bordered">
@@ -515,24 +520,24 @@
         </tr>
         <tr>
           <td colspan="4" class="valign-mid">
-              <strong>10. Main wall construction type</strong>
+            <strong>10. Main wall construction type</strong>
           </td>
           <td colspan="3">
-              <ion-list radio-group>
-                <ion-item class="col-6">
-                  <ion-radio value="&gt;50% cavity wall"></ion-radio>
-                  <ion-label>&gt;50% cavity wall</ion-label>
-                </ion-item>
-                <ion-item class="col-6">
-                  <ion-radio class="block" value="&gt;50% solid wall"></ion-radio>
-                  <ion-label>&gt;50% solid wall</ion-label>
-                </ion-item>
-              </ion-list>
+            <ion-list radio-group>
+              <ion-item class="col-6">
+                <ion-radio value="&gt;50% cavity wall"></ion-radio>
+                <ion-label>&gt;50% cavity wall</ion-label>
+              </ion-item>
+              <ion-item class="col-6">
+                <ion-radio class="block" value="&gt;50% solid wall"></ion-radio>
+                <ion-label>&gt;50% solid wall</ion-label>
+              </ion-item>
+            </ion-list>
           </td>
         </tr>
         <tr>
           <td colspan="4" class="valign-mid">
-              <strong>11. Are there a full set of functioning pre-existing heating controls?</strong>
+            <strong>11. Are there a full set of functioning pre-existing heating controls?</strong>
           </td>
           <td colspan="3">
             <ion-item class="col-12">
@@ -618,7 +623,9 @@
               <ion-checkbox [(ngModel)]="bb5"></ion-checkbox>
             </ion-item>
             <ion-item>
-              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+              <ion-input
+                placeholder="___________________________________________________________________________________________">
+              </ion-input>
             </ion-item>
           </td>
         </tr>
@@ -696,19 +703,25 @@
           <td colspan="3">
             <ion-item>
               <ion-label>Inefficient/broken boiler (Please specify accompanying insulation measure)</ion-label>
-              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+              <ion-input
+                placeholder="___________________________________________________________________________________________">
+              </ion-input>
             </ion-item>
           </td>
           <td colspan="2">
             <ion-item>
               <ion-label>Fan assisted:</ion-label>
-              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+              <ion-input
+                placeholder="___________________________________________________________________________________________">
+              </ion-input>
             </ion-item>
           </td>
           <td colspan="2">
             <ion-item>
               <ion-label>High heat retention:</ion-label>
-              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+              <ion-input
+                placeholder="___________________________________________________________________________________________">
+              </ion-input>
             </ion-item>
           </td>
         </tr>
@@ -751,7 +764,8 @@
         </tr>
         <tr>
           <td width="70%">
-            <strong class="block">15. Approximate build year or age band, & reasoning <small>(all solid wall measures):</small></strong>
+            <strong class="block">15. Approximate build year or age band, & reasoning <small>(all solid wall
+                measures):</small></strong>
           </td>
           <td width="30%">
           </td>
@@ -772,43 +786,269 @@
           <td colspan="2">
             <strong class="block">17. Please state wall type for SWI measure - eg solid, cavity, system build:</strong>
             <ion-item>
-              <ion-input placeholder="___________________________________________________________________________________________"></ion-input>
+              <ion-input
+                placeholder="___________________________________________________________________________________________">
+              </ion-input>
             </ion-item>
           </td>
         </tr>
       </table>
     </div>
     <div [ngClass]="is67 ? 'show-67':'hide-67'">
-      <h4>ANNEX 1 - POPT Calculations (Mandatory where POPT is less than 67%) Please enter the exact POPT to the nearest whole number.</h4>
+      <h4>ANNEX 1 - POPT Calculations (Mandatory where POPT is less than 67%) Please enter the exact POPT to the nearest
+        whole number.</h4>
       <table class="table table-bordered">
-          <tr class="yellow-bg">
-            <td colspan="11" class="text-center"><strong>Roof Insultion measures only</strong></td>
-          </tr>
-          <tr>
-            <td colspan="11">
-              <span>Enter areas with a different roof type (or where a different roof insulation measure/depth is being installed) as extension. for RIRI, the total residual loft area should be included in the RIR area recorded below. For further information on scoring a RIRI measure please see chapter 7 of ECO3 Guidance</span>
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Property section <small>(main loft, extension etc)</small></strong></td>
-            <td><strong>Roof type <small>(Flat/pitched/RIR)</small></strong></td>
-            <td><strong>Roof area <small>(M<sup>2</sup>)</small></strong></td>
-            <td colspan="8"><strong>M<sup>2</sup> and type of insulation to be installed<sup>8</sup></strong></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>&lt; 100mm</td>
-            <td></td>
-            <td>&gt; 100mm</td>
-            <td></td>
-            <td>FRI</td>
-            <td></td>
-            <td>RIRI</td>
-            <td></td>
-          </tr>
+        <tr class="yellow-bg">
+          <td colspan="11" class="text-center"><strong>Roof Insultion measures only</strong></td>
+        </tr>
+        <tr>
+          <td colspan="11">
+            <span>Enter areas with a different roof type (or where a different roof insulation measure/depth is being
+              installed) as extension. for RIRI, the total residual loft area should be included in the RIR area
+              recorded below. For further information on scoring a RIRI measure please see chapter 7 of ECO3
+              Guidance</span>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Property section <small>(main loft, extension etc)</small></strong></td>
+          <td><strong>Roof type <small>(Flat/pitched/RIR)</small></strong></td>
+          <td><strong>Roof area <small>(M<sup>2</sup>)</small></strong></td>
+          <td colspan="8"><strong>M<sup>2</sup> and type of insulation to be installed<sup>8</sup></strong></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td width="5%"></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td width="5%"></td>
+          <td class="text-center">FRI</td>
+          <td width="5%"></td>
+          <td class="text-center">RIRI</td>
+          <td width="5%"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td></td>
+          <td class="text-center">FRI</td>
+          <td></td>
+          <td class="text-center">RIRI</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td></td>
+          <td class="text-center">FRI</td>
+          <td></td>
+          <td class="text-center">RIRI</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td></td>
+          <td class="text-center">FRI</td>
+          <td></td>
+          <td class="text-center">RIRI</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td></td>
+          <td class="text-center">FRI</td>
+          <td></td>
+          <td class="text-center">RIRI</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="black-bg text-center">Totl roof area<sup>9</sup></td>
+          <td><strong><sup>A</sup></strong></td>
+          <td class="text-center">&lt; 100mm</td>
+          <td><strong><sup>B</sup></strong></td>
+          <td class="text-center">&gt; 100mm</td>
+          <td><strong><sup>C</sup></strong></td>
+          <td class="text-center">FRI</td>
+          <td><strong><sup>D</sup></strong></td>
+          <td class="text-center">RIRI</td>
+          <td><strong><sup>E</sup></strong></td>
+        </tr>
+        <tr>
+          <td><strong>&lt; 100mm POPT</strong></td>
+          <td>B/C = <span class="float-right">%</span></td>
+          <td colspan="6"><strong>FRI POPT</strong></td>
+          <td colspan="3">D/A = <span class="float-right">%</span></td>
+        </tr>
+        <tr>
+          <td><strong>&gt; 100mm POPT</strong></td>
+          <td>C/A = <span class="float-right">%</span></td>
+          <td colspan="6"><strong>Percentage of RIRI measure installed<sup>10</sup></strong></td>
+          <td colspan="3"><span class="float-right">F%</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="6"><strong>RIRI POPT</strong></td>
+          <td colspan="3">(E x F)/A = <span class="float-right">%</span></td>
+        </tr>
+        <tr class="yellow-bg">
+          <td colspan="11" class="text-center"><strong>Wall insulation measures only</strong></td>
+        </tr>
+        <tr>
+          <td colspan="11">
+            <span>Enter each different type of wall area as an extension. Wall area must be included all <u>heat loss
+                wall areas</u> (including areas already insulated and areas that cannot be insulated).</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="valign-mid"><strong>Property section <small>(eg, main property, extension, front walls
+                etc)</small></strong></td>
+          <td colspan="2" class="valign-mid"><strong>Wall construction <small>(Eg, Cavity/cob/solid stone/solid
+                brick/system/timber/park home)</small></strong></td>
+          <td><strong>Wall area M<sup>2</sup> (excl windows and doors)</strong></td>
+          <td colspan="6" class="valign-mid"><strong>M<sup>2</sup> of insulation to be installed</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2"></td>
+          <td></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"></td>
+        </tr>
+        <tr>
+          <td class="black-bg text-right" colspan="4">Total wall areas</td>
+          <td><strong><sup>A</sup></strong></td>
+          <td class="text-center">CWI</td>
+          <td colspan="2"><strong><sup>B</sup></strong></td>
+          <td class="text-center">SWI</td>
+          <td colspan="2"><strong><sup>C</sup></strong></td>
+        </tr>
+        <tr>
+          <td class="black-bg text-right" colspan="6">Total wall areas</td>
+          <td colspan="3" class="text-center"><strong>SWI (type 2)</strong></td>
+          <td colspan="2"><strong><sup>D</sup></strong></td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>CWI POPT</strong></td>
+          <td colspan="2">B/A = <span class="float-right">%</span></td>
+          <td colspan="2"><strong>SWI POPT (type 2)</strong></td>
+          <td colspan="5">D/A = <span class="float-right">%</span></td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>SWI POPT</strong></td>
+          <td colspan="2">C/A = <span class="float-right">%</span></td>
+          <td colspan="2"><strong>PWI POPT</strong></td>
+          <td colspan="5"><span class="float-right">%</span></td>
+        </tr>
+        <tr class="yellow-bg">
+          <td colspan="11" class="text-center"><strong>Floor insulation measures only</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="valign-mid"><strong>Property section <small>(main property, extension
+                etc)</small></strong></td>
+          <td colspan="4" class="valign-mid"><strong>Floor construction <small>(e.g. timber
+                suspended/solid)</small></strong></td>
+          <td class="valign-mid"><strong>Area M<sup>2</sup></strong></td>
+          <td colspan="4" class="valign-mid"><strong>M<sup>2</sup> of insulation to be installed</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"></td>
+          <td></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"></td>
+          <td></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"></td>
+          <td></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"></td>
+          <td></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"></td>
+          <td></td>
+          <td colspan="4"></td>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>UFI POPT</strong></td>
+          <td colspan="2">B/A = <span class="foat-right">%</span></td>
+          <td colspan="2" class="black-bg">Total floor area</td>
+          <td><strong><sup>A</sup></strong></td>
+          <td colspan="4"><strong><sup>B</sup></strong></td>
+        </tr>
       </table>
+    </div>
+    <button ion-button full (click)="openFloorPlanModel()">Draw Floor Plan</button>
+    <div>
+      <img [src]='floorPlanImage' *ngIf="floorPlanImage"/>
     </div>
   </div>
 </ion-content>

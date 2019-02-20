@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>floorplan</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <signature-pad [options]="signaturePadOptions" id="floorPlanCanvas"></signature-pad>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button full color="danger" (click)="floorPlanCancel()">Cancel</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button full color="light" (click)="floorPlanClear()">Clear</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button full color="secondary" (click)="floorPlanComplete()">Save</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
