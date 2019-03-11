@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>{{ info.name_of_customer }} | {{ campaignName }}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="savedObject()"> Save Lead </button>
+      <!-- <button ion-button (click)="savedObject()"> Save Lead </button> -->
       <button ion-button (click)="submitObject()"> Submit </button>
     </ion-buttons>
   </ion-navbar>
@@ -1046,9 +1046,707 @@
         </tr>
       </table>
     </div>
-    <button ion-button full (click)="openFloorPlanModel()">Draw Floor Plan</button>
-    <div>
-      <img [src]='floorPlanImage' *ngIf="floorPlanImage"/>
+    <button ion-button full (click)="openFloorPlan()">Draw Floor Plan</button>
+    <div [ngClass]="isFloorPlan ? 'show-floorplan':'hide-floorplan'">
+      <h4>Draw a basic sketch plan on the next page showing the rooms and walls</h4>
+      <table class="table table-bordered">
+        <tr class="yellow-bg">
+          <td colspan="2" class="text-center"><strong>Basic sketch plan instructions for all measure types</strong></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <p><strong>Room Key:</strong> BR# = Bedrooms; LR = Living Room; K = Kitchen; D = Dining Room; BTH =
+              Bathroom.</p>
+            <p><strong>Wall Type key:</strong> __________ Cavity/non cavity*; Adjacent to unheated space <u>XXXXX</u>
+            </p>
+            <p>Doors should always be included where the measure being scored is a high performance external door and
+              windows should only be included where the measure is window glazing</p>
+          </td>
+        </tr>
+        <tr class="yellow-bg">
+          <td colspan="2" class="text-center"><strong>Sketch plan instructions by measure type</strong></td>
+        </tr>
+        <tr>
+          <td class="text-center"><strong>Heating Measures</strong></td>
+          <td class="text-center"><strong>Roof, wall and floor measures</strong></td>
+        </tr>
+        <tr>
+          <td>
+            <p><strong><u>&gt;</u>67% POPT:</strong> For <strong>boiler</strong> <u>&gt;</u>67% POPT or FTCH, please
+              complete a b asic sketch including locations of heat emitters (no full dimensions). If multiple boilers
+              are located in a property, please sketch location of these.</p>
+            <p><strong>&lt;67% POPT:</strong> For heating jobs where &lt;67% POPT is being claimed, and for <strong>all
+                ESH jobs</strong>, please show the heating sources, heat emitters such as radiators or storage heater
+              locations using the following key:</p>
+            <ul>
+              <li>HS# = heating system/boiler (HS1 = main heating source)</li>
+              <li>RAD = Radiator with no existing TRV</li>
+              <li>RADT = Radiator with existing TRV</li>
+              <li>RS = Room Stat</li>
+              <li>RH = Room heater</li>
+              <li>ESH = Storage heater</li>
+              <li>UFH = Under floor heating</li>
+            </ul>
+            <p><strong>Provide full dimensions to the plan so that the POPT calculations can be clearly
+                calculated.</strong></p>
+          </td>
+          <td>
+            <p><strong><u>&gt;</u>67% POPT:</strong> For measures <u>&gt;</u>67% POPT, please complete a basic sketch
+              (no full dimensions) showing any different roof types using the following key:</p>
+            <ul>
+              <li>PR = Pitched roof</li>
+              <li>FR = Flat roof</li>
+              <li>RIR = Room in roof</li>
+              <li>RES = RIRI Residual Loft Area</li>
+              <li>UFI = Under floor insulation</li>
+            </ul>
+            <p><strong>The wall type should be completed using the wall type key and sketch instructions.</strong></p>
+            <p><strong>&lt;67% POPT:</strong> For roof and floor insulation jobs where &lt;67% POPT is being claimed, if
+              known, please add details of different types of wall or roof.</p>
+            <p><strong>Provide full dimensions to the plan so that the POPT calculations can be clearly
+                calculated.</strong></p>
+          </td>
+        </tr>
+      </table>
+      <signature-pad [options]="signaturePadOptions" id="floorPlanCanvas"></signature-pad>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4>
+            <button ion-button full color="danger" (click)="openFloorPlan()">Cancel</button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button full color="light" (click)="drawClear('floorplan')">Clear</button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button full color="secondary" (click)="floorPlanComplete()">Save</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <img [src]='floorPlanImage' *ngIf="floorPlanImage" />
+    </div>
+    <button ion-button full (click)="openDssyB()">Upload DSSY B Files</button>
+    <div [ngClass]="isDSSYb ? 'show-dssyb':'hide-dssyb'">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Bedrooms</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photos; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'bedroom')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('bedroom')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Kitchens</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosKitchen; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'kitchen')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('kitchen')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+      
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Dining Room</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosDining; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'dining_room')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('dining_room')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Living Room</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosLiving; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'living_room')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('living_room')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Hallway</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosHallway; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'hallway')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('hallway')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Landing</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosLanding; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'landing')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('landing')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Fort Elevation</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosFort; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'fort_elevation')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('fort_elevation')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Side Elevation</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosSide; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'side_elevation')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('side_elevation')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Rear Elevation</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosRear; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'rear_elevation')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('rear_elevation')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Water Closet</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosWater; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'water')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('water')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Utility</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosUtility; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'utility')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('utility')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Lounge</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosLounge; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'lounge')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('lounge')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Bathrooms</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosBathrooms; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'bathroom')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('bathroom')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Cupboards</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosCupboards; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'cupboard')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('cupboard')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Conservatory</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosConservatory; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'conservatory')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('conservatory')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Stairs</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosStairs; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'stair')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('stair')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Garages</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosGarages; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'garage')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('garage')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Wall Thickness</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosWallThickness; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'wallthickness')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('wallthickness')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Fused Spur</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosFused; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'fused')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('fused')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Room Stats</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosRoomStats; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'roomstat')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('roomstat')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Programmer</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-8>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let photo of photosProgrammer; let id = index">
+                      <ion-card class="block">
+                        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id, 'programmer')"></ion-icon>
+                        <img [src]="photo" *ngIf="photo" />
+                      </ion-card>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-col>
+              <ion-col col-4>
+                <button ion-button full (click)="takePhoto('programmer')">Take Photos</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+    <button ion-button full (click)="openDeclaration()">Customer Declaration</button>
+    <div [ngClass]="isDeclared ? 'show-declaration':'hide-declaration'">
+      <h4>Consent Form for sharing data with the Energy Saving Trust</h4>
+      <p> We need to check you are eligible for the Energy Company Obligation (ECO) scheme.
+        To do this, we would like to share your information with the Department for Work and Pensions (DWP) via
+        the Energy Saving Trust (EST) who will verify whether or not you (or a member of your household) are
+        receiving
+        benefits to be eligible for the ECO scheme.</p>
+      <p> You do not have to consent to us sharing your information with EST. However, this will involve
+        providing copies
+        of documents providing proof of the benefits you are in receipt of from the Department for Work and
+        Pensions.
+      </p>
+      <p> For full information on what will happen to the data we collect about you, please see the <u>Privacy
+          Notice</u>
+        which we will have provided you with separately.</p>
+      <p>By ticking the box below, and providing your details, you agree to share this data with the Department
+        of Work and Pensions
+        via the Energy Saving Trust.
+      </p>
+      <ion-item>
+        <ion-label> I agree to my information provided below being shared with the Department for Work and Pensions via
+          the Energy Saving Trust
+          to confirm whether I am in receipt of the relevant benefits to be eligible for the ECO scheme.
+        </ion-label>
+        <ion-checkbox [(ngModel)]="customerAgreement"></ion-checkbox>
+      </ion-item>
+      <p>Signature Here: </p>
+      <signature-pad [options]="signaturePadOptions" id="signatureCanvas" #declaration></signature-pad>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button full color="light" (click)="drawClear('declaration')">Clear</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button full color="secondary" (click)="drawComplete('declaration')">Done</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <button ion-button full (click)="openSurveyorSig()">Surveyor Signature</button>
+    <div [ngClass]="isSurveyorSig ? 'show-surveyorsig':'hide-surveyorsig'">
+      <signature-pad [options]="signaturePadOptions" id="signatureCanvas" #declaration></signature-pad>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <button ion-button full color="light" (click)="drawClear('surveyorsig')">Clear</button>
+          </ion-col>
+          <ion-col col-6>
+            <button ion-button full color="secondary" (click)="drawComplete('surveyorsig')">Done</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </div>
 </ion-content>

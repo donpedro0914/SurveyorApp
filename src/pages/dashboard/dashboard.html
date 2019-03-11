@@ -15,22 +15,61 @@
 
 
 <ion-content padding>
-  <ion-list padding-bottom>
 
-     <ion-list-header class="sectionInProgress">
-       <ion-icon name="book" start></ion-icon>
-       &nbsp; In Progress
-     </ion-list-header>
-
-    <ion-item *ngFor="let lead of leads">
-      <ion-item (click)="showLead(lead.lead_slug, lead.c_campaign_name)">
-        <p>{{lead.name_of_customer}}</p>
-        <small>{{lead.c_campaign_name}}</small>
-        <div clear item-right>
-          <p>{{ lead.created_at }}</p>
-        </div>
+  <ion-card>
+    <ion-card-header color="warning">
+      <ion-card-title>
+          <ion-icon name="thumbs-up" start></ion-icon> Completed Leads
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let lead of completelead">
+        <ion-item (click)="showLead(lead.lead_slug, lead.c_campaign_name)">
+          <p>{{lead.name_of_customer}}</p>
+          <small>{{lead.c_campaign_name}}</small>
+          <div clear item-right>
+            <p>{{ lead.created_at }}</p>
+          </div>
+        </ion-item>
       </ion-item>
-    </ion-item>
+    </ion-card-content>
+  </ion-card>
 
-   </ion-list>
+  <ion-card>
+    <ion-card-header color="warning">
+      <ion-card-title>
+        <ion-icon name="book" start></ion-icon> In Progress
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let lead of leads">
+        <ion-item (click)="showLead(lead.lead_slug, lead.c_campaign_name)">
+          <p>{{lead.name_of_customer}}</p>
+          <small>{{lead.c_campaign_name}}</small>
+          <div clear item-right>
+            <p>{{ lead.created_at }}</p>
+          </div>
+        </ion-item>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header color="warning">
+      <ion-card-title>
+          <ion-icon name="clipboard" start></ion-icon> New Leads
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item *ngFor="let lead of leads2">
+        <ion-item (click)="showLead(lead.lead_slug, lead.c_campaign_name)">
+          <p>{{lead.name_of_customer}}</p>
+          <small>{{lead.c_campaign_name}}</small>
+          <div clear item-right>
+            <p>{{ lead.created_at }}</p>
+          </div>
+        </ion-item>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

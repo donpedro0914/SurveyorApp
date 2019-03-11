@@ -24,6 +24,8 @@ export class DashboardPage {
   name: string;
   id: number;
   leads:any;
+  leads2:any;
+  completelead:any;
 
   ionViewDidLoad() {
     let data = JSON.parse(localStorage.getItem('data'));
@@ -71,8 +73,8 @@ export class DashboardPage {
   {
     let data = JSON.parse(data1._body);
     this.leads = data['In_Progress'];
-    // localStorage.setItem('leads', JSON.parse(this.leads));
-    // console.log(this.leads);
+    this.leads2 = data['New_Leads'];
+    this.completelead = data['Completed'];
   }
 
   handleError(error)

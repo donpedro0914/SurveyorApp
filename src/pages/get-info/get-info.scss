@@ -50,10 +50,10 @@ page-get-info {
     .yellow-bg {
         background: #b0d654;
     }
-    .hide-heat, .hide-wall, .hide-67, .hide-drawPad {
+    .hide-heat, .hide-wall, .hide-67, .hide-floorplan, .hide-dssyb, .hide-declaration, .hide-surveyorsig {
         display: none;
     }
-    .show-heat, .show-wall, .show-67, .show-drawPad {
+    .show-heat, .show-wall, .show-67, .show-floorplan, .show-dssyb, .show-declaration, .show-surveyorsig {
         display: block;
     }
     .black-bg {
@@ -66,5 +66,14 @@ page-get-info {
     }
     .color-block {
         height: 50px;
+    }
+    .block {
+        position: relative;
+        .deleteIcon {
+            position: absolute;
+            margin-left: 95%;
+            margin-top: 5px;
+            color: #fff;
+        }
     }
 }
